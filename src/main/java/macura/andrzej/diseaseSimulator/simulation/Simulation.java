@@ -4,7 +4,6 @@ package macura.andrzej.diseaseSimulator.simulation;
 import macura.andrzej.diseaseSimulator.record.Record;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.*;
 
 
@@ -20,8 +19,10 @@ public class Simulation {
     private Integer simulationTime;     // Ts
     @Id
     @GeneratedValue
+    @Column(name = "SIMULATION_ID")
     private Integer id;
-    @OneToMany(mappedBy = "model")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "SIMULATION_ID")
     private List<Record> records;
 
     public Simulation(String name, Integer population, Integer startedInfected, Integer contagiousness, Integer mortality, Integer healingTime, Integer deathTime, Integer simulationTime,List<Record> records) {

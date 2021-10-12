@@ -16,7 +16,7 @@ public class SimulationService {
     @Autowired
     private RecordRepository recordRepository;
     public Simulation getSimulation(Integer simulationId) {
-        return repository.getById(simulationId);
+        return repository.findById(simulationId).get();
     }
 
     public ResponseEntity<Integer> createSimulation(String name,
@@ -31,6 +31,7 @@ public class SimulationService {
                 mortality,healingTime,deathTime,simulationTime,new ArrayList<>());
         simulation.run();
         repository.save(simulation);
+        recordRepository.saveAll(simulation.getRecords());
         System.out.println(simulation.getId());
         return new ResponseEntity<>(simulation.getId(), HttpStatus.CREATED);
 

@@ -1,5 +1,6 @@
 package macura.andrzej.diseaseSimulator.record;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import macura.andrzej.diseaseSimulator.simulation.Simulation;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ public class Record {
     @GeneratedValue
     private Integer id;
     @ManyToOne()
-    @JoinColumn(name = "simulation_id", insertable = false, updatable = false)
+    @JsonIgnore
     private Simulation model;
 
     public Record(Integer infectedCount, Integer remaining, Integer killed, Integer healed, Simulation model,Integer day) {
@@ -25,6 +26,9 @@ public class Record {
         this.healed = healed;
         this.model = model;
         this.day = day;
+    }
+
+    public Record() {
     }
 
     @Override
